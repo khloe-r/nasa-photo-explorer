@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.card-img {
+  max-height: 400px;
+  height: auto;
+  overflow: hidden;
+}
+
+@media (min-width: 576px) {
+  .search-bar {
+    width: 200px;
+  }
+}

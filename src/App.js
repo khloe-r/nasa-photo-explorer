@@ -9,10 +9,14 @@ function App() {
   const [photos, setPhotos] = useState();
   const [loading, setLoading] = useState(true);
   const dateRef = useRef();
+  let today = new Date();
+  let month = today.getMonth() + 1;
+  let date = today.getDate();
+  let todayIsoDate = `${today.getFullYear()}-${month < 10 ? `0${month}` : month}-${date < 10 ? `0${date}` : date}`;
 
   async function getData() {
     setLoading(true);
-    const response = await fetch(`https://api.nasa.gov/planetary/apod?count=20&api_key=${process.env.REACT_APP_NASA_APIKEY}`);
+    const response = await fetch(`https://api.nasa.gov/planetary/apod?count=20&thumbs=True&api_key=${process.env.REACT_APP_NASA_APIKEY}`);
     const data = await response.json();
     setPhotos(data);
     setLoading(false);
@@ -21,21 +25,19 @@ function App() {
   async function getSearchData(date) {
     try {
       const response = await fetch(`https://api.nasa.gov/planetary/apod?start_date=${date}&api_key=${process.env.REACT_APP_NASA_APIKEY}`);
-      console.log(data);
       const data = await response.json();
       setPhotos(data);
+
       setLoading(false);
     } catch (error) {
-      console.log("invalid");
-      setPhotos([]);
-      setLoading(false);
+      console.log(error);
     }
   }
 
   const searchDate = () => {
     if (dateRef.current.value != "") {
-      getSearchData(dateRef.current.value);
       setLoading(true);
+      getSearchData(dateRef.current.value);
     }
   };
 
@@ -44,8 +46,8 @@ function App() {
   }, []);
 
   return (
-    <div className="App mx-5 mt-5">
-      <h2>NASA Photo Explorer</h2>
+    <div className="App px-5 pt-5 bg-light">
+      <h1>Spacestagram</h1>
       <p className="text-secondary mb-3">Brought to you by NASA's Astronomy Photo of the Day API</p>
       {!photos || loading ? (
         <Spinner animation="border" role="status">
@@ -55,13 +57,15 @@ function App() {
         <Form className="mb-3">
           <Form.Group className="mb-2" controlId="searchDate">
             <Form.Label>Enter a start date to search!</Form.Label>
-            <Form.Control ref={dateRef} type="date" placeholder="YYYY-MM-DD" />
+            <div className="d-flex justify-content-center px-5">
+              <Form.Control className="d-flex justify-content-around search-bar" ref={dateRef} type="date" placeholder="YYYY-MM-DD" max={todayIsoDate} />
+            </div>
           </Form.Group>
 
-          <Button variant="primary" onClick={searchDate}>
+          <Button variant="dark" onClick={searchDate}>
             Search
           </Button>
-          <Button variant="" onClick={getData}>
+          <Button variant="outline-dark" onClick={getData}>
             Reset
           </Button>
         </Form>
@@ -112,7 +116,7 @@ function PhotoCard(props) {
     <>
       <Col>
         <Card>
-          <Card.Img variant="top" src={props.pic.url} alt={props.pic.title} />
+          <Card.Img className="card-img" variant="top" src={props.pic.url} alt={props.pic.title} />
           <Card.Body>
             <Card.Title>
               {props.pic.title} - {props.pic.date}
@@ -142,10 +146,10 @@ function PhotoCard(props) {
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="outline-dark" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={() => copyURL(url)}>
+          <Button variant="dark" onClick={() => copyURL(url)}>
             Copy Link
           </Button>
         </Modal.Footer>
