@@ -1,7 +1,7 @@
 import "./App.css";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import copy from "copy-to-clipboard";
-import { Row, Col, Card, Button, Modal, Spinner, Alert } from "react-bootstrap";
+import { Card, Button, Modal, Spinner, Alert } from "react-bootstrap";
 import { Heart, HeartFill, Share } from "react-bootstrap-icons";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
@@ -21,16 +21,23 @@ function PhotoPreview() {
     const response = await fetch(`https://api.nasa.gov/planetary/apod?date=${date}&api_key=${process.env.REACT_APP_NASA_APIKEY}`);
     const data = await response.json();
     setPhoto(data);
-    console.log(data);
     setLoading(false);
   }
 
   useEffect(() => {
     getData();
+    if (localStorage.getItem(date) !== null) {
+      setLiked(true);
+    }
   }, []);
 
   const likeHeart = () => {
     setLiked(like ? false : true);
+    if (!like) {
+      localStorage.setItem(date, true);
+    } else {
+      localStorage.removeItem(date);
+    }
   };
 
   const handleClose = () => {
@@ -57,7 +64,7 @@ function PhotoPreview() {
               <span className="visually-hidden">Loading...</span>
             </Spinner>
           ) : (
-            <Card style={{ width: "18rem" }}>
+            <Card style={{ width: "20rem" }}>
               <Card.Img className="card-img" variant="top" src={url} alt={"space-photo"} />
               <Card.Body>
                 <Card.Title>
