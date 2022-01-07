@@ -10,7 +10,7 @@ function Error404() {
         <h1>404 Error</h1>
         <p className="text-black-75 mb-3">Sorry invalid link!</p>
       </div>
-      <Link to="/nasa-photo-explorer">
+      <Link to="/">
         <Button className="mt-2 mb-5" variant="outline-dark">
           Return to Photo Gallery
         </Button>

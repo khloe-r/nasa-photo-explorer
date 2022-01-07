@@ -3,18 +3,17 @@ import React, { useState, useEffect } from "react";
 import copy from "copy-to-clipboard";
 import { Card, Button, Modal, Spinner, Alert } from "react-bootstrap";
 import { Heart, HeartFill, Share } from "react-bootstrap-icons";
-import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 
-function PhotoPreview() {
-  let { id, date } = useParams();
+function PhotoPreview(props) {
+  let { id, date } = props.match.params;
   const [photo, setPhoto] = useState();
   const [loading, setLoading] = useState(true);
   const [like, setLiked] = useState(false);
   const [show, setShow] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const url = `https://apod.nasa.gov/apod/image/${id.replace("-", "/")}.jpg`;
-  const shareURL = `https://khloe-r.github.io/nasa-photo-explorer/${id}/${date}`;
+  const shareURL = `https://khloe-r.github.io/nasa-photo-explorer/#/preview/${id}/${date}`;
 
   async function getData() {
     setLoading(true);
@@ -81,7 +80,7 @@ function PhotoPreview() {
             </Card>
           )}
         </div>
-        <Link to="/nasa-photo-explorer">
+        <Link to="/">
           <Button className="my-3" variant="outline-dark">
             Return to Photo Gallery
           </Button>
@@ -93,7 +92,7 @@ function PhotoPreview() {
           </Modal.Header>
           <Modal.Body>
             Send this link to your friends: <br></br>
-            <Link to={`/nasa-photo-explorer/preview/${id}/${date}`}>{shareURL}</Link>
+            <Link to={`/preview/${id}/${date}`}>{shareURL}</Link>
             {showAlert && (
               <>
                 <Alert className="mt-3" variant="success">

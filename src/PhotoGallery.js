@@ -33,7 +33,7 @@ function PhotoGallery() {
   }
 
   const searchDate = () => {
-    if (dateRef.current.value != "") {
+    if (dateRef.current.value !== "") {
       setLoading(true);
       getSearchData(dateRef.current.value);
     }
@@ -81,7 +81,7 @@ function PhotoGallery() {
             <p></p>
           )}
         </Row>
-        {photos && !loading && photos.length == 0 && (
+        {photos && !loading && photos.length === 0 && (
           <Alert className="mt-5" variant="danger">
             No results found
           </Alert>

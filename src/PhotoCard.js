@@ -30,7 +30,7 @@ function PhotoCard(props) {
   };
 
   const copyURL = (url) => {
-    copy(`https://khloe-r.github.io/nasa-photo-explorer/preview/${url}`);
+    copy(`https://khloe-r.github.io/nasa-photo-explorer/#/preview/${url}`);
     setShowAlert(true);
   };
 
@@ -58,7 +58,7 @@ function PhotoCard(props) {
         </Modal.Header>
         <Modal.Body>
           Send this link to your friends: <br></br>
-          <Link to={`/nasa-photo-explorer/preview/${url}`}>{`https://khloe-r.github.io/nasa-photo-explorer/preview/${url}`}</Link>
+          <Link to={`/preview/${url}`}>{`https://khloe-r.github.io/nasa-photo-explorer/#/preview/${url}`}</Link>
           {showAlert && (
             <>
               <Alert className="mt-3" variant="success">
