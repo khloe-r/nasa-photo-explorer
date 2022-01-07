@@ -38,15 +38,15 @@ function PhotoCard(props) {
     <>
       <Col>
         <Card>
-          <Card.Img className="card-img" variant="top" src={props.pic.url} alt={props.pic.title} />
+          <Card.Img className="card-img" variant="top" src={props.pic.url} alt={props.pic.title} aria-label={props.pic.title} />
           <Card.Body>
             <Card.Title>
               {props.pic.title} - {props.pic.date}
             </Card.Title>
             <Card.Text>{props.pic.explanation}</Card.Text>
             <div className="d-flex justify-content-around align-items-center">
-              {localStorage.getItem(props.pic.date) !== null ? <HeartFill className="text-danger" onClick={likeHeart} /> : <Heart onClick={likeHeart} />}
-              <Share onClick={() => handleShow(props.pic.url, props.pic.date)} />
+              {localStorage.getItem(props.pic.date) !== null ? <HeartFill aria-label="Unlike Photo" className="text-danger" onClick={likeHeart} /> : <Heart onClick={likeHeart} aria-label="Like Photo" />}
+              <Share aria-label="Share Photo" onClick={() => handleShow(props.pic.url, props.pic.date)} />
             </div>
           </Card.Body>
         </Card>
@@ -59,7 +59,6 @@ function PhotoCard(props) {
         <Modal.Body>
           Send this link to your friends: <br></br>
           <Link to={`/preview/${url}`}>{`https://khloe-r.github.io/nasa-photo-explorer/preview/${url}`}</Link>
-          {/* <a href={url}></a> */}
           {showAlert && (
             <>
               <Alert className="mt-3" variant="success">

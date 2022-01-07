@@ -45,122 +45,50 @@ function PhotoGallery() {
 
   return (
     <div className="App px-5 pt-5 bg-light">
-      <h1>Spacestagram</h1>
-      <p className="text-secondary mb-3">Brought to you by NASA's Astronomy Photo of the Day API</p>
-      {!photos || loading ? (
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-      ) : (
-        <Form className="mb-3">
-          <Form.Group className="mb-2" controlId="searchDate">
-            <Form.Label>Enter a start date to search!</Form.Label>
-            <div className="d-flex justify-content-center px-5">
-              <Form.Control className="d-flex justify-content-around search-bar" ref={dateRef} type="date" placeholder="YYYY-MM-DD" max={todayIsoDate} />
-            </div>
-          </Form.Group>
-
-          <Button variant="dark" onClick={searchDate}>
-            Search
-          </Button>
-          <span> </span>
-          <Button variant="outline-dark" onClick={getData}>
-            Reset
-          </Button>
-        </Form>
-      )}
-      <Row xs={1} md={2} lg={4} className="g-4">
-        {photos ? (
-          photos.map((pic, index) => {
-            return <PhotoCard key={index} pic={pic} />;
-          })
+      <div role="banner">
+        <h1>Spacestagram</h1>
+        <p className="text-black-75 mb-3">Brought to you by NASA's Astronomy Photo of the Day API</p>
+      </div>
+      <div role="main">
+        {!photos || loading ? (
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
         ) : (
-          <p></p>
+          <Form className="mb-3" role="search" aria-labelledby="searchBar">
+            <Form.Group className="mb-2" controlId="searchDate">
+              <Form.Label id="searchBar">Enter a start date to search!</Form.Label>
+              <div className="d-flex justify-content-center px-5">
+                <Form.Control className="d-flex justify-content-around search-bar" ref={dateRef} type="date" placeholder="YYYY-MM-DD" max={todayIsoDate} />
+              </div>
+            </Form.Group>
+
+            <Button aria-label="Search Button" variant="dark" onClick={searchDate}>
+              Search
+            </Button>
+            <span> </span>
+            <Button aria-label="Reset to Original Search" variant="outline-dark" onClick={getData}>
+              Reset
+            </Button>
+          </Form>
         )}
-      </Row>
-      {photos && !loading && photos.length == 0 && (
-        <Alert className="mt-5" variant="danger">
-          No results found
-        </Alert>
-      )}
+        <Row xs={1} md={2} lg={4} className="g-4">
+          {photos ? (
+            photos.map((pic, index) => {
+              return <PhotoCard key={index} pic={pic} />;
+            })
+          ) : (
+            <p></p>
+          )}
+        </Row>
+        {photos && !loading && photos.length == 0 && (
+          <Alert className="mt-5" variant="danger">
+            No results found
+          </Alert>
+        )}
+      </div>
     </div>
   );
 }
-
-// function PhotoCard(props) {
-//   const [like, setLike] = useState(false);
-//   const [show, setShow] = useState(false);
-//   const [showAlert, setShowAlert] = useState(false);
-//   const [url, setURL] = useState("Loading...");
-
-//   const likeHeart = () => {
-//     setLike(like ? false : true);
-//     if (!like) {
-//       localStorage.setItem(props.pic.date, true);
-//     } else {
-//       localStorage.removeItem(props.pic.date);
-//     }
-//   };
-
-//   const handleClose = () => {
-//     setShow(false);
-//     setShowAlert(false);
-//   };
-//   const handleShow = (photoURL, date) => {
-//     setShow(true);
-//     setURL(`${photoURL.substring(33, photoURL.length - 4).replace("/", "-")}/${date}`);
-//   };
-
-//   const copyURL = (url) => {
-//     copy(`https://khloe-r.github.io/nasa-photo-explorer/${url}`);
-//     setShowAlert(true);
-//   };
-
-//   return (
-//     <>
-//       <Col>
-//         <Card>
-//           <Card.Img className="card-img" variant="top" src={props.pic.url} alt={props.pic.title} />
-//           <Card.Body>
-//             <Card.Title>
-//               {props.pic.title} - {props.pic.date}
-//             </Card.Title>
-//             <Card.Text>{props.pic.explanation}</Card.Text>
-//             <div className="d-flex justify-content-around align-items-center">
-//               {localStorage.getItem(props.pic.date) !== null ? <HeartFill className="text-danger" onClick={likeHeart} /> : <Heart onClick={likeHeart} />}
-//               <Share onClick={() => handleShow(props.pic.url, props.pic.date)} />
-//             </div>
-//           </Card.Body>
-//         </Card>
-//       </Col>
-
-//       <Modal size="lg" show={show} onHide={handleClose}>
-//         <Modal.Header closeButton>
-//           <Modal.Title>Share this photo!</Modal.Title>
-//         </Modal.Header>
-//         <Modal.Body>
-//           Send this link to your friends: <br></br>
-//           <Link to={`/preview/${url}`}>{`https://khloe-r.github.io/nasa-photo-explorer/${url}`}</Link>
-//           {/* <a href={url}></a> */}
-//           {showAlert && (
-//             <>
-//               <Alert className="mt-3" variant="success">
-//                 Copied to clipboard!
-//               </Alert>
-//             </>
-//           )}
-//         </Modal.Body>
-//         <Modal.Footer>
-//           <Button variant="outline-dark" onClick={handleClose}>
-//             Close
-//           </Button>
-//           <Button variant="dark" onClick={() => copyURL(url)}>
-//             Copy Link
-//           </Button>
-//         </Modal.Footer>
-//       </Modal>
-//     </>
-//   );
-// }
 
 export default PhotoGallery;

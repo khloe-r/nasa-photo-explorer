@@ -56,16 +56,18 @@ function PhotoPreview() {
   return (
     <>
       <div className="App px-5 py-5 bg-light">
-        <h1>Spacestagram</h1>
-        <p className="text-secondary mb-3">Brought to you by NASA's Astronomy Photo of the Day API</p>
-        <div className="d-flex justify-content-center">
+        <div role="banner">
+          <h1>Spacestagram</h1>
+          <p className="text-black-75 mb-3">Brought to you by NASA's Astronomy Photo of the Day API</p>
+        </div>
+        <div className="d-flex justify-content-center" role="main">
           {!photo || loading ? (
             <Spinner animation="border" role="status">
               <span className="visually-hidden">Loading...</span>
             </Spinner>
           ) : (
             <Card style={{ width: "20rem" }}>
-              <Card.Img className="card-img" variant="top" src={url} alt={"space-photo"} />
+              <Card.Img className="card-img" variant="top" src={url} alt={photo.title} />
               <Card.Body>
                 <Card.Title>
                   {photo.title} - {date}
@@ -80,7 +82,9 @@ function PhotoPreview() {
           )}
         </div>
         <Link to="/">
-          <p className="my-3">Return to Photo Gallery</p>
+          <Button className="my-3" variant="outline-dark" onClick={handleClose}>
+            Return to Photo Gallery
+          </Button>
         </Link>
 
         <Modal size="lg" show={show} onHide={handleClose}>
