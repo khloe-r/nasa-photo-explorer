@@ -7,6 +7,7 @@ NASA Photo Explorer using NASA's Astronomy Photo of the Day API and built with `
 - Displays grid of NASA's Astronomy Photos of the Day with like button
 - Ability to search for photos from start-date to today
 - Generates sharing link to send photos to friends
+- Saves liked photos in local storage
 
 # Demo
 
