@@ -81,8 +81,8 @@ function PhotoPreview() {
             </Card>
           )}
         </div>
-        <Link to="/">
-          <Button className="my-3" variant="outline-dark" onClick={handleClose}>
+        <Link to="/nasa-photo-explorer">
+          <Button className="my-3" variant="outline-dark">
             Return to Photo Gallery
           </Button>
         </Link>
@@ -93,7 +93,7 @@ function PhotoPreview() {
           </Modal.Header>
           <Modal.Body>
             Send this link to your friends: <br></br>
-            <Link to={`preview/${id}/${date}`}>{shareURL}</Link>
+            <Link to={`/nasa-photo-explorer/preview/${id}/${date}`}>{shareURL}</Link>
             {showAlert && (
               <>
                 <Alert className="mt-3" variant="success">

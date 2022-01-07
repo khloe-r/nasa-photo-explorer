@@ -58,7 +58,7 @@ function PhotoCard(props) {
         </Modal.Header>
         <Modal.Body>
           Send this link to your friends: <br></br>
-          <Link to={`/preview/${url}`}>{`https://khloe-r.github.io/nasa-photo-explorer/preview/${url}`}</Link>
+          <Link to={`/nasa-photo-explorer/preview/${url}`}>{`https://khloe-r.github.io/nasa-photo-explorer/preview/${url}`}</Link>
           {showAlert && (
             <>
               <Alert className="mt-3" variant="success">
